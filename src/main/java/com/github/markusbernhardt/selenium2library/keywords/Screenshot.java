@@ -39,6 +39,25 @@ public abstract class Screenshot extends RunOnFailure {
 						link, link));
 	}
 
+	public void capturePageScreenshot(String filename, String URL) {
+		File logdir = getLogDir();
+		File path = new File(logdir, normalizeFilename(filename));
+		String link = URL + normalizeFilename(filename);
+		System.out.print(link);
+		TakesScreenshot takesScreenshot = ((TakesScreenshot) webDriverCache
+				.getCurrent());
+		if (takesScreenshot == null) {
+			warn("Can't take screenshot. No open browser found");
+			return;
+		}
+
+		byte[] png = takesScreenshot.getScreenshotAs(OutputType.BYTES);
+		writeScreenshot(path, png);
+
+		html(String
+				.format("</td></tr><tr><td colspan=\"3\"><a href=\"%s\"><img src=\"%s\" width=\"800px\"></a>",
+						link, link));
+	}
 	// ##############################
 	// Internal Methods
 	// ##############################

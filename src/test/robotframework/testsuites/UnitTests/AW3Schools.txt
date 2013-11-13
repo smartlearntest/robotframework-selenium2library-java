@@ -1,6 +1,7 @@
 *** Settings ***
 Suite Teardown    Close All Browsers
 Library           Selenium2Library
+Library			  Collections
 
 *** Variables ***
 ${URL Application}    http://www.w3schools.com
@@ -55,4 +56,15 @@ Open Browser after Close Browser creates unique browser id
     Close browser
     ${id}    Open Browser    http://www.w3schools.com    firefox    mainbrowser2
     Should Be Equal    ${id}    2    
+    Close All Browsers
+
+Verify Index calls
+    @{resList}    getAllBrowserIds
+    ${id}    Open Browser    http://www.w3schools.com    firefox    mainbrowser1
+    ${res}	 getCurrentBrowserId
+    Should Be Equal    ${id}    ${res}
+    ${id2}    Open Browser    http://www.w3schools.com    firefox    mainbrowser2
+    @{resList}    getAllBrowserIds
+    @{list}=    Create List    ${id}    ${id2}
+    Lists Should Be Equal    ${resList}    ${list}
     Close All Browsers

@@ -80,6 +80,10 @@ public class WebDriverCache {
 		}
 		return null;
 	}
+	
+	public Stack<String> getOpenSessionIds() {
+		return openSessionIds;
+	}
 
 	public void close() {
 		if (currentSessionIdAliasWebDriverTuple != null) {

@@ -1,6 +1,8 @@
 package com.github.markusbernhardt.selenium2library.keywords;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -55,6 +57,30 @@ public class Selenium2LibraryEnhancement extends Waiting {
 
 	public String logRemoteSessionId() {
 		String actual = getRemoteSessionId();
+		info(actual);
+		return actual;
+	}
+	
+	public List<String> getAllBrowserIds() {
+		Stack<String>allBrowserIds = webDriverCache.getOpenSessionIds();
+		if (allBrowserIds!=null) {
+			List<String>returnVal = new ArrayList<String>(allBrowserIds);
+			return returnVal;
+		} else {
+			return new ArrayList<String>();
+		}
+	}
+
+	public String getCurrentBrowserId() {
+		if (webDriverCache.getCurrentSessionId()!=null) {
+			return webDriverCache.getCurrentSessionId().toString();
+		} else {
+			return "No open browsers";
+		}
+	}
+	
+	public String logCurrentBrowserId() {
+		String actual = getCurrentBrowserId();
 		info(actual);
 		return actual;
 	}

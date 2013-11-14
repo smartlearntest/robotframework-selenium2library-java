@@ -40,10 +40,13 @@ public abstract class Screenshot extends RunOnFailure {
 	}
 
 	public void capturePageScreenshot(String filename, String URL) {
+		if (URL.equals("None")) {
+			capturePageScreenshot(filename);
+			return;
+		}
 		File logdir = getLogDir();
 		File path = new File(logdir, normalizeFilename(filename));
 		String link = URL + normalizeFilename(filename);
-		System.out.print(link);
 		TakesScreenshot takesScreenshot = ((TakesScreenshot) webDriverCache
 				.getCurrent());
 		if (takesScreenshot == null) {

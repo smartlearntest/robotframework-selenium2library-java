@@ -55,7 +55,7 @@
 		<dependency>
 			<groupId>com.opera</groupId>
 			<artifactId>operadriver</artifactId>
-			<version>1.1</version>
+			<version>1.5</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.detro.ghostdriver</groupId>
@@ -81,6 +81,12 @@
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-remote-driver</artifactId>
 			<version>2.37.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>15.0</version>
+			<classifier>site</classifier>
 		</dependency>
 	</dependencies>
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchWindowException;
 import org.openqa.selenium.WebDriver;
 
 import com.github.markusbernhardt.selenium2library.Selenium2LibraryNonFatalException;
@@ -113,14 +114,28 @@ public class WindowManager {
 
 		protected static void selectMatching(WebDriver webDriver,
 				Matcher matcher, String error) {
-			String startingHandle = webDriver.getWindowHandle();
+			String startingHandle = null;
+			try {
+				startingHandle = webDriver.getWindowHandle();
+			} 
+			catch (NoSuchWindowException e) {
+				startingHandle = null;
+			}
+			catch (Exception e) {
+				throw e;
+			}
 			for (String handle : webDriver.getWindowHandles()) {
 				webDriver.switchTo().window(handle);
 				if (matcher.match(getCurrentWindowInfo(webDriver))) {
 					return;
 				}
 			}
-			webDriver.switchTo().window(startingHandle);
+			if (startingHandle != null) {
+				webDriver.switchTo().window(startingHandle);
+			} else {
+				// Go back to the main window. This doesn't currently work. 
+				//webDriver.switchTo().window("");
+			}
 			throw new Selenium2LibraryNonFatalException(error);
 		}
 	}

@@ -37,6 +37,11 @@ public class Screenshot extends RunOnFailureKeywordsAdapter {
 	public void capturePageScreenshot() {
 		capturePageScreenshot(null);
 	}
+	
+	@RobotKeywordOverload
+	public void capturePageScreenshotWithUrl() {
+		capturePageScreenshotWithUrl(null, "None");
+	}
 
 	/**
 	 * Take a screenshot of the current page and embed it into the log.<br>
@@ -74,10 +79,29 @@ public class Screenshot extends RunOnFailureKeywordsAdapter {
 		logging.html(String.format(
 				"</td></tr><tr><td colspan=\"3\"><a href=\"%s\"><img src=\"%s\" width=\"800px\"></a>", link, link));
 	}
-    
+	
+	/**
+	 * Take a screenshot of the current page and embed it into the log.<br>
+	 * <br>
+	 * The <b>filename</b> argument specifies the name of the file to write the
+	 * screenshot into. If no filename is given, the screenshot is saved into
+	 * file selenium-screenshot-&lt;counter&gt;.png under the directory where
+	 * the Robot Framework log file is written into. The filename is also
+	 * considered relative to the same directory, if it is not given in absolute
+	 * format.<br>
+	 * <br>
+	 * A CSS can be used to modify how the screenshot is taken. By default the
+	 * background color is changed to avoid possible problems with background
+	 * leaking when the page layout is somehow broken.<br>
+	 * 
+	 * @param filename
+	 *            Default=NONE. Name of the file to write.
+	 * @param URL
+	 *            Default=NONE. Name of the file to write.
+	 */
 	@RobotKeyword
 	@ArgumentNames({ "filename=NONE", "URL=None" })
-	public void capturePageScreenshot(String filename, String URL) {
+	public void capturePageScreenshotWithUrl(String filename, String URL) {
 		if (URL.equals("None")) {
 			capturePageScreenshot(filename);
 			return;

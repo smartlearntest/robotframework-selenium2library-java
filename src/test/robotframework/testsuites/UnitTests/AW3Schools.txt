@@ -59,7 +59,6 @@ Open Browser after Close Browser creates unique browser id
     Close All Browsers
 
 Verify Index calls
-    @{resList}    getAllBrowserIds
     ${id}    Open Browser    http://www.w3schools.com    firefox    mainbrowser1
     ${res}	 getCurrentBrowserId
     Should Be Equal    ${id}    ${res}
@@ -68,3 +67,4 @@ Verify Index calls
     @{list}=    Create List    ${id}    ${id2}
     Lists Should Be Equal    ${resList}    ${list}
     Close All Browsers
+    

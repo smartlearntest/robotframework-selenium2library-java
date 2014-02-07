@@ -74,6 +74,30 @@ public class Screenshot extends RunOnFailureKeywordsAdapter {
 		logging.html(String.format(
 				"</td></tr><tr><td colspan=\"3\"><a href=\"%s\"><img src=\"%s\" width=\"800px\"></a>", link, link));
 	}
+    
+	@RobotKeyword
+	@ArgumentNames({ "filename=NONE", "URL=None" })
+	public void capturePageScreenshot(String filename, String URL) {
+		if (URL.equals("None")) {
+			capturePageScreenshot(filename);
+			return;
+		}
+		File logdir = logging.getLogDir();
+		File path = new File(logdir, normalizeFilename(filename));
+		String link = URL + normalizeFilename(filename);
+		TakesScreenshot takesScreenshot = ((TakesScreenshot) browserManagement.getCurrentWebDriver());
+		if (takesScreenshot == null) {
+			logging.warn("Can't take screenshot. No open browser found");
+			return;
+		}
+
+		byte[] png = takesScreenshot.getScreenshotAs(OutputType.BYTES);
+		writeScreenshot(path, png);
+
+		logging.html(String
+				.format("</td></tr><tr><td colspan=\"3\"><a href=\"%s\"><img src=\"%s\" width=\"800px\"></a>",
+						link, link));
+	}
 
 	public void capturePageScreenshot(String filename, String URL) {
 		if (URL.equals("None")) {

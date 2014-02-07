@@ -3,6 +3,7 @@ package com.github.markusbernhardt.selenium2library.keywords;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -277,7 +278,63 @@ public class Logging extends RunOnFailureKeywordsAdapter {
 		log(actual, logLevel);
 		return actual;
 	}
+	
+	@RobotKeywordOverload
+	public List<String> getAllBrowserIds() {
+		return getAllBrowserIds("INFO");
+	}
+	/**
+	 * returns the browser id of the all the browser instances.<br>
+	 * <br>
+	 * See `Introduction` for details about the <b>logLevel</b>.<br>
+	 * 
+	 * @return The browser id's.
+	 * 
+	 * @see BrowserManagement#getAllBrowserIds
+	 */
+	@RobotKeyword
+	@ArgumentNames({ "logLevel=INFO" })
+	public List<String> getAllBrowserIds(String logLevel) {
+		List<String> allBrowserIds = browserManagement.getOpenSessionIds();
+		if (allBrowserIds!=null) {
+			for (String Id : allBrowserIds) {
+				log(Id, logLevel);
+			}
+			return allBrowserIds;
+		} else {
+			return new ArrayList<String>();
+		}
+	}
 
+	@RobotKeywordOverload
+	public String getCurrentBrowserId() {
+		return getCurrentBrowserId("INFO");
+	}
+	/**
+	 * returns the browser id of the current browser instances.<br>
+	 * <br>
+	 * See `Introduction` for details about the <b>logLevel</b>.<br>
+	 * 
+	 * @param logLevel
+	 *            Default=INFO. Optional log level.	 
+	 * @return The current browser id.
+	 * 
+	 * @see BrowserManagement#getAllBrowserIds
+	 */
+	@RobotKeyword
+	@ArgumentNames({ "logLevel=INFO" })
+	public String getCurrentBrowserId(String logLevel) {
+		if (browserManagement.getCurrentSessionId() !=null) {
+			String actual = browserManagement.getCurrentSessionId();
+			log(actual, logLevel);
+			return actual;
+		} else {
+			String actual = "No open browsers";
+			log(actual, logLevel);
+			return actual;
+		}
+	}
+	
 	/**
 	 * Set the <b>logDirectory</b>, where captured screenshots are stored, to
 	 * some custom path.<br>

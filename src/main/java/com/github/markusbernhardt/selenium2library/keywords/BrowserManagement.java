@@ -781,7 +781,30 @@ public class BrowserManagement extends RunOnFailureKeywordsAdapter {
 	public String getTitle() {
 		return webDriverCache.getCurrent().getTitle();
 	}
-
+	
+	/**
+	 * Returns the stack of Open Session Id's.
+	 * 
+	 * @return Array of Id's.
+	 * 
+	 * @see Logging#getOpenSessionIds
+	 */
+	@RobotKeyword
+	public List<String> getOpenSessionIds() {
+		return webDriverCache.getOpenSessionIds();
+	}
+	
+	/**
+	 * Returns the current browser Id.
+	 * 
+	 * @return Id.
+	 * 
+	 * @see Logging#getCurrentSessionId
+	 */
+	@RobotKeyword
+	public String getCurrentSessionId() {
+		return webDriverCache.getCurrentSessionId();
+	}
 	/**
 	 * Returns the actually supported capabilities of the remote browser
 	 * instance.<br>

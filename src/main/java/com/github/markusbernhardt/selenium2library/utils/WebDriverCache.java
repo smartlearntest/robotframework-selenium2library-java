@@ -1,9 +1,11 @@
 package com.github.markusbernhardt.selenium2library.utils;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Stack;
 import java.util.TreeMap;
+import java.util.List;
 
 import org.openqa.selenium.WebDriver;
 
@@ -78,8 +80,16 @@ public class WebDriverCache {
 		return null;
 	}
 	
-	public Stack<String> getOpenSessionIds() {
-		return openSessionIds;
+	public List<String> getOpenSessionIds() {
+		List<String> tmpString = new ArrayList<String>();
+		List<String> returnValue = new ArrayList<String>();
+		for (String Ids : openSessionIds) {
+			tmpString.add(Ids);
+		}
+		for (String ret : tmpString) {
+			returnValue.add(ret);
+		}
+		return returnValue;
 	}
 
 	public void close() {
